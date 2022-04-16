@@ -1,3 +1,4 @@
 {
-  "navigationBarTitleText": "uni-app"
+  "navigationBarTitleText": "uni-app",
+  "usingComponents": {}
 }
