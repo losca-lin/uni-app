@@ -17,56 +17,57 @@
 
 <script>
 	export default {
-		name:"my-good",
-		props:{
-			goods:{
-				type:Object,
-				default:{}
+		name: "my-good",
+		props: {
+			goods: {
+				type: Object,
+				default: {}
 			}
 		},
 		data() {
 			return {
-				defaultPic:'https://img3.doubanio.com/f/movie/8dd0c794499fe925ae2ae89ee30cd225750457b4/pics/movie/celebrity-default-medium.png'
+				defaultPic: 'https://img3.doubanio.com/f/movie/8dd0c794499fe925ae2ae89ee30cd225750457b4/pics/movie/celebrity-default-medium.png'
 			};
 		},
-		filters:{
+		filters: {
 			// 把数字处理为带两位小数点的数字 
-			tofixed(num) { return Number(num).toFixed(2) }
+			tofixed(num) {
+				return Number(num).toFixed(2)
+			}
 		},
 	}
 </script>
 
 <style lang="scss">
-.goods-list{
-	display: flex;
-	flex-direction: column;
-	padding: 5 5px;
-	.goods-item{
+	.goods-item {
 		display: flex;
 		border-bottom: 1px solid #efefef;
-		.goods-item-left{
-			.goods-pic{
+
+		.goods-item-left {
+			.goods-pic {
 				height: 100px;
 				width: 100px;
 				display: block;
 			}
 		}
-		.goods-item-right{
+
+		.goods-item-right {
 			display: flex;
 			flex-direction: column;
 			justify-content: space-between;
 			margin-left: 5px;
-			.goods-name{
+
+			.goods-name {
 				font-size: 13px;
 			}
-			.goods-info-box{
-				
-			}
-			.goods-price{
+
+			.goods-info-box {}
+
+			.goods-price {
 				font-size: 16px;
 				color: #c00000;
 			}
 		}
+
 	}
-}
 </style>

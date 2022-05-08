@@ -70,5 +70,9 @@
 </script>
 
 <style lang="scss">
-
+.goods-list{
+	display: flex;
+	flex-direction: column;
+	padding: 5 5px;
+}
 </style>
