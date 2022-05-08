@@ -1,5 +1,8 @@
 <template>
 	<view>
+		<!-- 自定义组件 -->
+		<!-- <my-searach :bgcolor="'#ff557f'" :bradius="0"></my-searach> -->
+		<my-searach @myclick="gotoSearch"></my-searach>
 		<view class="scroll-view-container">
 			<!-- 左侧的滚动视图区域 -->
 			<scroll-view class="left-scroll-view" scroll-y :style="{height: wh + 'px'}">
@@ -16,7 +19,8 @@
 					<!-- 动态渲染三级分类的列表数据 -->
 					<view class="cate-lv3-list">
 						<!-- 三级分类 Item 项 -->
-						<view class="cate-lv3-item" v-for="(item3, i3) in item2.children" :key="i3"  @click="gotoGoodsList(item3)">
+						<view class="cate-lv3-item" v-for="(item3, i3) in item2.children" :key="i3"
+							@click="gotoGoodsList(item3)">
 							<!-- 图片 -->
 							<image :src="item3.cat_icon"></image> <!-- 文本 -->
 							<text>{{item3.cat_name}}</text>
@@ -43,7 +47,7 @@
 		onLoad() {
 			const info = uni.getSystemInfoSync()
 			console.log(info)
-			this.wh = info.windowHeight;;
+			this.wh = info.windowHeight - 50;
 			this.getCateList();
 		},
 		methods: {
@@ -59,11 +63,16 @@
 				this.active = index
 				this.cateListLv2 = this.cateList[index].children
 				// 修改bug 页面切换置顶
-				this.scrollTop = this.scrollTop == 0?1:0
+				this.scrollTop = this.scrollTop == 0 ? 1 : 0
 			},
-			gotoGoodsList(item3){
+			gotoGoodsList(item3) {
 				uni.navigateTo({
-					url:"/subpkg/goods_list/goods_list?cid=" + item3.cat_id
+					url: "/subpkg/goods_list/goods_list?cid=" + item3.cat_id
+				})
+			},
+			gotoSearch(){
+				uni.navigateTo({
+					url:"/subpkg/search/search"
 				})
 			}
 		}

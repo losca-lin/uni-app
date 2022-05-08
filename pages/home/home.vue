@@ -1,5 +1,8 @@
 <template>
 	<view>
+		<view class="mysearch">
+			<my-searach @myclick="gotoSearch"></my-searach>
+		</view>
 		<swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000" :circular="true">
 			<swiper-item v-for="(item,i) in swiperList" :key="i">
 				<navigator class="swiper-item" :url="'/subpkg/goods_detail/goods_detail?goods_id='+item.goods_id">
@@ -30,7 +33,8 @@
 					</navigator> <!-- 右侧 4 个小图片的盒子 -->
 					<view class="right-img-box">
 						<view class="right-img-item" v-for="(item2, i2) in item.product_list" :key="i2" v-if="i2 !== 0">
-							<image :src="item2.image_src" mode="widthFix" :style="{width: item2.image_width + 'rpx'}" @click="clickToGoodsList(item2)">
+							<image :src="item2.image_src" mode="widthFix" :style="{width: item2.image_width + 'rpx'}"
+								@click="clickToGoodsList(item2)">
 							</image>
 						</view>
 					</view>
@@ -38,14 +42,14 @@
 			</view>
 		</view>
 	</view>
-	
+
 </template>
 
 <script>
 	export default {
 		data() {
 			return {
-				color:"blue",
+				color: "blue",
 				swiperList: [],
 				// 列表
 				navList: [],
@@ -86,9 +90,10 @@
 					return uni.$showMsg()
 				}
 				// debugger
-				res.message.forEach(item=>{
-					item.product_list.forEach(product=>{
-						product.url = '/subpkg/goods_list/goods_list?'+ product .navigator_url.split('?')[1]
+				res.message.forEach(item => {
+					item.product_list.forEach(product => {
+						product.url = '/subpkg/goods_list/goods_list?' + product.navigator_url.split(
+							'?')[1]
 					})
 				})
 				this.floorList = res.message
@@ -100,10 +105,15 @@
 					})
 				}
 			},
-			
-			clickToGoodsList(e){
+
+			clickToGoodsList(e) {
 				uni.navigateTo({
-					url:e.url
+					url: e.url
+				})
+			},
+			gotoSearch() {
+				uni.navigateTo({
+					url: "/subpkg/search/search"
 				})
 			}
 		}
@@ -148,5 +158,12 @@
 	.floor-img-box {
 		display: flex;
 		padding-left: 10rpx;
+	}
+	.mysearch{
+		// 固定位置
+		position: sticky;
+		// 固定在顶部
+		top: 0;
+		z-index: 999;
 	}
 </style>

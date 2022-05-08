@@ -10,7 +10,7 @@ Vue.config.productionTip = false
 // 在 uni-app 项目中，可以把 $http 挂载到 uni 顶级对象之上，方便全局调用
 uni.$http = $http
 
-$http.baseUrl = "https://www.uinav.com/"
+$http.baseUrl = "http://www.uinav.com/"
 
 // 请求开始之前做一些事情
 $http.beforeRequest = function (options) {
