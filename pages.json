@@ -47,7 +47,9 @@
                     "style" :                                                                                    
                 {
                     "navigationBarTitleText": "",
-                    "enablePullDownRefresh": false
+                    "enablePullDownRefresh": true,
+					"backgroundColor":"#E4E7ED",
+					"onReachBottomDistance":150
                 }
                 
                 }
