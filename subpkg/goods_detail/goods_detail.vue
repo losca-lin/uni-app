@@ -35,12 +35,36 @@
 </template>
 
 <script>
+	// 从 vuex 中按需导出 mapState 辅助方法 
+	import {
+		mapState,
+		mapMutations,
+		mapGetters,
+	} from 'vuex'
 	export default {
+		computed: {
+			// 完成函数映射
+			...mapState('m_cart', ['cart']),
+			...mapGetters('m_cart', ['total'])
+		},
+		watch: {
+			// total(newVal){
+			// 	debugger
+			// 	this.options[1].info = newVal
+			// }
+			total: {
+				// handler 属性用来定义侦听器的 function 处理函数 
+				handler(newVal) {
+					this.options[1].info = newVal
+				},
+				// immediate 属性用来声明此侦听器，是否在页面初次加载完毕后立即调用 
+				immediate: true
+			}
+		},
 		data() {
 			return {
 				goods_info: {},
-				options: [
-					{
+				options: [{
 						icon: 'shop',
 						text: '店铺',
 						infoBackgroundColor: '#007aff',
@@ -49,7 +73,7 @@
 					{
 						icon: 'cart',
 						text: '购物车',
-						info: 2
+						info: 0
 					}
 				],
 				buttonGroup: [{
@@ -63,13 +87,14 @@
 						color: '#fff'
 					}
 				],
-				
+
 			};
 		},
 		onLoad(obj) {
 			this.getGoodsInfo(obj.goods_id)
 		},
 		methods: {
+			...mapMutations('m_cart', ['addToCart']),
 			async getGoodsInfo(goods_id) {
 				const {
 					data: res
@@ -87,16 +112,33 @@
 					urls: this.goods_info.pics.map(x => x.pics_big)
 				})
 			},
-			onClick(e){
+			onClick(e) {
 				console.log(e)
-				if(e.content.text == '购物车'){
+				if (e.content.text == '购物车') {
 					uni.switchTab({
-						url:"/pages/cart/cart"
+						url: "/pages/cart/cart"
 					})
 				}
 			},
-			buttonClick(){
-				
+			buttonClick(e) {
+				if (e.content.text == '加入购物车') {
+					// 2. 组织一个商品的信息对象 
+					const goods = {
+						goods_id: this.goods_info.goods_id,
+
+						goods_name: this.goods_info.goods_name,
+
+						goods_price: this.goods_info.goods_price,
+
+						goods_count: 1,
+
+						goods_small_logo: this.goods_info.goods_small_logo,
+
+						goods_state: true,
+					}
+					// 3. 通过 this 调用映射过来的 addToCart 方法，把商品信息对象存储到购物车中 
+					this.addToCart(goods)
+				}
 			}
 		},
 
@@ -149,12 +191,14 @@
 			color: gray;
 		}
 	}
-	.goods-carts{
+
+	.goods-carts {
 		position: fixed;
 		bottom: 0;
 		width: 100%;
 	}
-	.goodContainer{
+
+	.goodContainer {
 		padding-bottom: 50px;
 	}
 </style>
